@@ -90,7 +90,7 @@ export function CategoryCard({ category, items, index }: CategoryCardProps) {
           >
             {(item.logo || item.logo_path) ? (
               <Image
-                src={item.logo_path || item.logo}
+                src={(item.logo_path || item.logo) as string}
                 alt={item.title}
                 width={24}
                 height={24}
