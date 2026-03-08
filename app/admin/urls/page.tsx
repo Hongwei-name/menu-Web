@@ -446,7 +446,7 @@ export default function UrlsPage() {
                   type="button"
                   onClick={() => {
                     setShowAddModal(false);
-                    setFormData({ title: "", url: "", category: "tools", description: "" });
+                    setFormData({ title: "", url: "", category: "tools", description: "", logo_path: "" });
                   }}
                   className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 >
