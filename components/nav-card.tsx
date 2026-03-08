@@ -12,6 +12,7 @@ interface NavCardProps {
   url: string;
   category: Category;
   logo?: string;
+  logo_path?: string;
   icon?: React.ReactNode;
   index: number;
   isGridView: boolean;
@@ -31,7 +32,7 @@ const categoryBorderColors = {
   resources: "border-red-500",
 };
 
-export function NavCard({ title, description, url, category, logo, icon, index, isGridView }: NavCardProps) {
+export function NavCard({ title, description, url, category, logo, logo_path, icon, index, isGridView }: NavCardProps) {
   return (
     <motion.a
       href={url}
@@ -65,9 +66,9 @@ export function NavCard({ title, description, url, category, logo, icon, index, 
               categoryColors[category]
             )}
           >
-            {(logo || (props as any).logo_path) ? (
+            {(logo || logo_path) ? (
               <Image
-                src={(props as any).logo_path || logo}
+                src={logo_path || logo as string}
                 alt={title}
                 width={32}
                 height={32}
