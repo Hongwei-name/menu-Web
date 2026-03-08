@@ -11,13 +11,14 @@ interface HeaderProps {
   isGridView: boolean;
   onThemeToggle: () => void;
   isDarkMode: boolean;
+  siteName?: string;
 }
 
 /**
  * 顶部导航栏组件
  * 包含品牌Logo、搜索栏和功能按钮
  */
-export function Header({ onSearch, onLayoutToggle, isGridView, onThemeToggle, isDarkMode }: HeaderProps) {
+export function Header({ onSearch, onLayoutToggle, isGridView, onThemeToggle, isDarkMode, siteName = "导航网站" }: HeaderProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -67,10 +68,10 @@ export function Header({ onSearch, onLayoutToggle, isGridView, onThemeToggle, is
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-gradient-to-br from-primary to-primary-600 flex items-center justify-center hover:scale-105 transition-transform duration-300">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-primary flex items-center justify-center hover:scale-105 transition-transform duration-300">
                 <span className="text-white font-bold text-sm md:text-lg">N</span>
               </div>
-              <span className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">导航网站</span>
+              <span className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{siteName}</span>
             </motion.div>
 
             {/* 搜索栏 - 仅在中等尺寸及以上显示 */}

@@ -65,9 +65,9 @@ export function NavCard({ title, description, url, category, logo, icon, index, 
               categoryColors[category]
             )}
           >
-            {logo ? (
+            {(logo || (props as any).logo_path) ? (
               <Image
-                src={logo}
+                src={(props as any).logo_path || logo}
                 alt={title}
                 width={32}
                 height={32}

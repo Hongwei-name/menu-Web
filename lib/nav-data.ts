@@ -8,6 +8,7 @@ export interface NavItem {
   category: Category;
   icon?: string;
   logo?: string;
+  logo_path?: string;
 }
 
 export interface NavSection {
@@ -33,7 +34,7 @@ export const navData: NavItem[] = [
     description: "在线图片拼接工具，轻松合并多张图片",
     url: "https://www.lddgo.net/image/stitching-image",
     category: "tools",
-    icon: "LayoutTemplate",
+    icon: "Layers",
   },
   {
     id: "badge-generator",
@@ -49,7 +50,7 @@ export const navData: NavItem[] = [
     description: "免费稳定的图片托管服务，支持外链",
     url: "https://www.helloimg.com",
     category: "resources",
-    icon: "ImagePlus",
+    icon: "CloudUpload",
   },
   {
     id: "libvio",
@@ -57,7 +58,7 @@ export const navData: NavItem[] = [
     description: "高清美剧在线观看平台，资源丰富",
     url: "https://www.libvio.link/",
     category: "entertainment",
-    icon: "MonitorPlay",
+    icon: "Film",
   },
   {
     id: "wallpaper",
@@ -65,7 +66,7 @@ export const navData: NavItem[] = [
     description: "海量高清壁纸下载，多种风格可选",
     url: "https://haowallpaper.com/",
     category: "resources",
-    icon: "Image",
+    icon: "Palette",
   },
   {
     id: "geogebra",
@@ -73,7 +74,7 @@ export const navData: NavItem[] = [
     description: "强大的数学几何绘图工具，适合教学和学习",
     url: "https://www.geogebra.org/classic?lang=zh_CN",
     category: "learning",
-    icon: "Circle",
+    icon: "Compass",
   },
   {
     id: "cet4",
@@ -81,7 +82,7 @@ export const navData: NavItem[] = [
     description: "英语四级真题和备考资料下载",
     url: "https://pastpapers.cn/cet-4/",
     category: "learning",
-    icon: "GraduationCap",
+    icon: "BookOpen",
   },
   {
     id: "python",
@@ -89,7 +90,7 @@ export const navData: NavItem[] = [
     description: "廖雪峰Python教程，从入门到精通",
     url: "https://liaoxuefeng.com/books/python/basic/index.html",
     category: "learning",
-    icon: "Code2",
+    icon: "Code",
   },
   {
     id: "resume",

@@ -14,6 +14,7 @@ export default function Home() {
   const [isGridView, setIsGridView] = useState(true);
   const [navData, setNavData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [siteName, setSiteName] = useState("导航网站");
 
   useEffect(() => {
     const isDark = localStorage.getItem("darkMode") === "true";
@@ -24,6 +25,23 @@ export default function Home() {
 
     const isGrid = localStorage.getItem("layout") !== "false";
     setIsGridView(isGrid);
+
+    // 获取网站设置
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch('/api/settings');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.site_name) {
+            setSiteName(data.site_name);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching settings:', error);
+      }
+    };
+
+    fetchSettings();
   }, []);
 
   useEffect(() => {
@@ -94,6 +112,7 @@ export default function Home() {
           isGridView={isGridView}
           onThemeToggle={handleThemeToggle}
           isDarkMode={isDarkMode}
+          siteName={siteName}
         />
 
         <motion.div

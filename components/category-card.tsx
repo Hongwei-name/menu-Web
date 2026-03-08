@@ -87,9 +87,9 @@ export function CategoryCard({ category, items, index }: CategoryCardProps) {
             transition={{ duration: 0.3, delay: index * 0.1 + itemIndex * 0.05 }}
             whileHover={{ x: 4 }}
           >
-            {item.logo ? (
+            {(item.logo || item.logo_path) ? (
               <Image
-                src={item.logo}
+                src={item.logo_path || item.logo}
                 alt={item.title}
                 width={24}
                 height={24}

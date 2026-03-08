@@ -8,10 +8,13 @@ import {
   Edit2, 
   Trash2, 
   ExternalLink,
-  MoreVertical
+  MoreVertical,
+  Upload,
+  X
 } from "lucide-react";
 import { navData, type NavItem, type Category } from "@/lib/nav-data";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const categories = [
   { id: "all", label: "全部" },
@@ -40,6 +43,7 @@ export default function UrlsPage() {
     url: "",
     category: "tools" as Category,
     description: "",
+    logo_path: "",
   });
 
   const fetchUrls = async () => {
@@ -78,7 +82,7 @@ export default function UrlsPage() {
       
       await fetchUrls();
       setShowAddModal(false);
-      setFormData({ title: "", url: "", category: "tools", description: "" });
+      setFormData({ title: "", url: "", category: "tools", description: "", logo_path: "" });
     } catch (error) {
       console.error("Error creating URL:", error);
       alert("创建网址失败，请重试");
@@ -99,7 +103,7 @@ export default function UrlsPage() {
       
       await fetchUrls();
       setEditingItem(null);
-      setFormData({ title: "", url: "", category: "tools", description: "" });
+      setFormData({ title: "", url: "", category: "tools", description: "", logo_path: "" });
     } catch (error) {
       console.error("Error updating URL:", error);
       alert("更新网址失败，请重试");
@@ -113,6 +117,7 @@ export default function UrlsPage() {
         url: editingItem.url,
         category: editingItem.category,
         description: editingItem.description,
+        logo_path: (editingItem as any).logo_path || "",
       });
     }
   }, [editingItem]);
@@ -132,6 +137,40 @@ export default function UrlsPage() {
       console.error("Error deleting URL:", error);
       alert("删除网址失败，请重试");
     }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    try {
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', file);
+      
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: uploadFormData,
+      });
+      
+      if (!response.ok) throw new Error('Failed to upload file');
+      
+      const data = await response.json();
+      // 使用正确的状态更新方式，确保保留其他字段
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        logo_path: data.logoPath
+      }));
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      alert('文件上传失败，请重试');
+    }
+  };
+
+  const removeLogo = () => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      logo_path: ''
+    }));
   };
 
   const filteredData = urls;
@@ -213,7 +252,17 @@ export default function UrlsPage() {
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/20 flex items-center justify-center">
-                        <ExternalLink className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                        {(item as any).logo_path ? (
+                          <Image 
+                            src={(item as any).logo_path} 
+                            alt={item.title} 
+                            width={24} 
+                            height={24} 
+                            className="object-contain"
+                          />
+                        ) : (
+                          <ExternalLink className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                        )}
                       </div>
                       <span className="font-medium text-gray-900 dark:text-white">
                         {item.title}
@@ -353,6 +402,45 @@ export default function UrlsPage() {
                 />
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  网站图标
+                </label>
+                <div className="flex items-center gap-4">
+                  {formData.logo_path ? (
+                    <div className="flex items-center gap-2">
+                      <Image 
+                        src={formData.logo_path} 
+                        alt="网站图标" 
+                        width={40} 
+                        height={40} 
+                        className="object-contain rounded"
+                      />
+                      <button
+                        type="button"
+                        onClick={removeLogo}
+                        className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                      <Upload className="w-5 h-5 text-gray-400" />
+                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                        点击上传图标
+                      </span>
+                      <input
+                        type="file"
+                        accept=".ico,.png,.jpg,.jpeg,.svg"
+                        onChange={handleFileUpload}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
+                </div>
+              </div>
+
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
@@ -445,6 +533,45 @@ export default function UrlsPage() {
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  网站图标
+                </label>
+                <div className="flex items-center gap-4">
+                  {formData.logo_path ? (
+                    <div className="flex items-center gap-2">
+                      <Image 
+                        src={formData.logo_path} 
+                        alt="网站图标" 
+                        width={40} 
+                        height={40} 
+                        className="object-contain rounded"
+                      />
+                      <button
+                        type="button"
+                        onClick={removeLogo}
+                        className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                      <Upload className="w-5 h-5 text-gray-400" />
+                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                        点击上传图标
+                      </span>
+                      <input
+                        type="file"
+                        accept=".ico,.png,.jpg,.jpeg,.svg"
+                        onChange={handleFileUpload}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
+                </div>
               </div>
 
               <div className="flex gap-3 pt-4">
