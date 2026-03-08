@@ -19,6 +19,7 @@ interface CategoryCardProps {
     description: string;
     url: string;
     logo?: string;
+    logo_path?: string;
   }[];
   index: number;
 }
