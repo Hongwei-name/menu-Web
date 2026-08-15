@@ -2,7 +2,7 @@
 
 一个纯前端、毛玻璃风格的个人网址导航站：多引擎搜索、分类管理、暗/亮主题，站点数据由外部 JSON 文件驱动，支持一键导入自己的 JSON 数据。
 
-在线访问：[zero_K导航站](https://hongwei-name.github.io/menu-Web/)（部署后替换为实际地址）
+在线访问：[zero_K导航站](https://nav.chwmwh.cn/)
 
 ## 技术栈
 
