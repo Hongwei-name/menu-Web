@@ -1,0 +1,140 @@
+/* ============================================================
+   设计令牌：参考「极净导航」的蓝白干净风 + 毛玻璃质感
+   浅色/深色双主题（data-theme 切换）
+   ============================================================ */
+:root {
+  /* 强调色（可被 settings.js 覆盖，默认 #1e87f0 UIkit 蓝） */
+  --accent: #1e87f0;
+
+  /* 背景 */
+  --bg-base: #f0f2f5;
+  --bg-overlay: rgba(255, 255, 255, 0.55);
+
+  /* 卡片：接近实心白，轻边框轻阴影 */
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --card-bg-hover: #ffffff;
+  --card-border: rgba(30, 41, 59, 0.08);
+  --card-border-hover: rgba(30, 144, 240, 0.35);
+  --card-shadow: 0 4px 16px rgba(31, 41, 55, 0.06);
+
+  --icon-bg: #f4f6f9;
+
+  /* 文字 */
+  --text-primary: #2b2f36;
+  --text-secondary: rgba(43, 47, 54, 0.58);
+
+  /* 顶栏：跟随主题强调色（微加深保证白字对比度） */
+  --topbar-bg: color-mix(in srgb, var(--accent) 88%, #1f2937);
+  --topbar-text: #ffffff;
+  --topbar-h: 60px;
+  --nav-bg: rgba(255, 255, 255, 0.92);
+
+  /* 搜索 */
+  --search-bg: #ffffff;
+  --search-shadow: 0 6px 20px rgba(31, 41, 55, 0.08);
+
+  /* 控件 */
+  --engine-bg: rgba(43, 47, 54, 0.05);
+  --engine-bg-hover: rgba(43, 47, 54, 0.09);
+  --menu-bg: #ffffff;
+  --menu-item-hover: rgba(43, 47, 54, 0.06);
+
+  /* 弹层 */
+  --panel-bg: rgba(255, 255, 255, 0.97);
+  --input-bg: #f6f8fa;
+  --mask-bg: rgba(15, 23, 42, 0.3);
+  --toast-bg: #ffffff;
+
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg-base: #0f1520;
+
+  --bg-overlay: rgba(10, 14, 22, 0.5);
+
+  --card-bg: rgba(30, 41, 59, 0.55);
+  --card-bg-hover: rgba(30, 41, 59, 0.75);
+  --card-border: rgba(148, 163, 184, 0.22);
+  --card-border-hover: rgba(129, 140, 248, 0.5);
+  --card-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+  --icon-bg: rgba(148, 163, 184, 0.16);
+
+  --text-primary: #e5e7eb;
+  --text-secondary: rgba(229, 231, 235, 0.62);
+
+  --topbar-bg: color-mix(in srgb, var(--accent) 55%, #0b101c);
+  --topbar-text: #e5e7eb;
+  --nav-bg: rgba(15, 23, 42, 0.5);
+
+  --search-bg: rgba(15, 23, 42, 0.55);
+  --search-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+
+  --engine-bg: rgba(148, 163, 184, 0.14);
+  --engine-bg-hover: rgba(148, 163, 184, 0.24);
+  --menu-bg: rgba(15, 23, 42, 0.95);
+  --menu-item-hover: rgba(148, 163, 184, 0.14);
+
+  --panel-bg: rgba(15, 23, 42, 0.92);
+  --input-bg: rgba(30, 41, 59, 0.8);
+  --mask-bg: rgba(2, 6, 23, 0.55);
+  --toast-bg: rgba(15, 23, 42, 0.92);
+
+  color-scheme: dark;
+}
+
+/* ============================================================
+   基础样式
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family:
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    color 0.3s,
+    background-color 0.3s;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* 细滚动条 */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--text-secondary) 30%, transparent);
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
